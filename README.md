@@ -29,9 +29,20 @@ Implement an User Authentication System in order to access the jokes from the Jo
 Demonstrate your understanding of this week's concepts by answering the following free-form questions. Edit this document to include your answers after each question. Make sure to leave a blank line above and below your answer so it is clear and easy to read by your project manager.
 
 1. What is the purpose of using _sessions_?
+
+Sessions are used to store information about the logged in user, effectively making the HTTP protocol stateful by persisting authentication data across HTTP requests over a window of time.
+
 1. What does bcrypt do to help us store passwords in a secure manner.
+
+`bcrypt` will encrypt (hash) a password so that the server doesn't store user passwords in plain text which is a security vulnerability.
+
 1. What does bcrypt do to slow down attackers?
+
+`bcrypt` uses a salt in its hashing function, which takes little enough time to not be an inconvenience for a user, but adds enough complexity to make brute force attacks unrealistic.
+
 1. What are the three parts of the JSON Web Token?
+
+A JWT is made up of a header (containing the algorithm and token type), a payload (containing user data typically), and a verify signature to ensure the JWT has not been tampered with.
 
 ## Project Set Up
 
@@ -54,17 +65,17 @@ Follow these steps for completing your project:
 
 Helpful Tip on Testing this Project:
 
-- [ ] **TEST** this project using **`POSTMAN`**.
+- [x] **TEST** this project using **`POSTMAN`**.
 
 ## Minimum Viable Product
 
-- [ ] Implement the `register` function inside `/config/routes.js`.
-- [ ] Implement the `login` function inside `/config/routes.js`.
-- [ ] Use JSON Web Tokens for authentication.
+- [x] Implement the `register` function inside `/config/routes.js`.
+- [x] Implement the `login` function inside `/config/routes.js`.
+- [x] Use JSON Web Tokens for authentication.
 
 **Note** The migrations and a database with empty users is already included
 
-- [ ] Add the authentication related code. If everything is done correctly, visiting `/api/jokes` should return a list of jokes.
+- [x] Add the authentication related code. If everything is done correctly, visiting `/api/jokes` should return a list of jokes.
 
 ## Stretch Problem: Build a front end to interface with your User Auth System
 
