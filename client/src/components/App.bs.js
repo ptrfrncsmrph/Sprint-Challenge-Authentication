@@ -7,6 +7,7 @@ var React = require("react");
 var ReactDOMRe = require("reason-react/src/ReactDOMRe.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
 var Home$ReactTemplate = require("./Home.bs.js");
+var Jokes$ReactTemplate = require("./Jokes.bs.js");
 
 var MyAppStatus = /* module */[/* isUserLoggedIn */true];
 
@@ -66,19 +67,20 @@ function make$1(_children) {
                         switch (match[0]) {
                           case "jokes" : 
                           case "login" : 
+                          case "logout" : 
                               exit = 1;
                               break;
                           case "signup" : 
-                              return Curry._1(self[/* send */3], /* ChangeRoute */[/* Jokes */3]);
+                              return Curry._1(self[/* send */3], /* ChangeRoute */Block.__(0, [/* Jokes */3]));
                           default:
-                            return Curry._1(self[/* send */3], /* ChangeRoute */[/* Jokes */3]);
+                            return Curry._1(self[/* send */3], /* ChangeRoute */Block.__(0, [/* Jokes */3]));
                         }
                         if (exit === 1) {
-                          return Curry._1(self[/* send */3], /* ChangeRoute */[/* Jokes */3]);
+                          return Curry._1(self[/* send */3], /* ChangeRoute */Block.__(0, [/* Jokes */3]));
                         }
                         
                       } else {
-                        return Curry._1(self[/* send */3], /* ChangeRoute */[/* Home */0]);
+                        return Curry._1(self[/* send */3], /* ChangeRoute */Block.__(0, [/* Home */0]));
                       }
                     }));
               return Curry._1(self[/* onUnmount */4], (function (param) {
@@ -91,16 +93,29 @@ function make$1(_children) {
           /* shouldUpdate */component$1[/* shouldUpdate */8],
           /* render */(function (param) {
               var match = param[/* state */1][/* route */0];
-              return React.createElement(React.Fragment, undefined, React.createElement("nav", undefined, ReasonReact.element(undefined, undefined, make("/jokes", undefined, /* array */["Jokes"]))), match !== 0 ? (
-                            match >= 3 ? ReasonReact.element(undefined, undefined, Home$ReactTemplate.make("JOKES   !!!! Hellowjadjfas;djf", /* array */[])) : ReasonReact.element(undefined, undefined, Home$ReactTemplate.make("Hellowjadjfas;djf", /* array */[]))
-                          ) : ReasonReact.element(undefined, undefined, Home$ReactTemplate.make("Hello, from App", /* array */[])));
+              return React.createElement(React.Fragment, undefined, React.createElement("nav", undefined, ReasonReact.element(undefined, undefined, make("/", undefined, /* array */["Home"])), ReasonReact.element(undefined, undefined, make("/jokes", undefined, /* array */["Jokes"])), ReasonReact.element(undefined, undefined, make("/logout", undefined, /* array */["Logout"])), ReasonReact.element(undefined, undefined, make("/signup", undefined, /* array */["Signup"]))), match !== 0 ? (
+                            match >= 3 ? ReasonReact.element(undefined, undefined, Jokes$ReactTemplate.make(/* array */[])) : ReasonReact.element(undefined, undefined, Home$ReactTemplate.make(/* array */[]))
+                          ) : ReasonReact.element(undefined, undefined, Home$ReactTemplate.make(/* array */[])));
             }),
           /* initialState */(function (param) {
-              return /* record */[/* route : Home */0];
+              return /* record */[
+                      /* route : Home */0,
+                      /* loggedIn */undefined
+                    ];
             }),
           /* retainedProps */component$1[/* retainedProps */11],
-          /* reducer */(function (action, _state) {
-              return /* Update */Block.__(0, [/* record */[/* route */action[0]]]);
+          /* reducer */(function (action, state) {
+              if (action.tag) {
+                return /* Update */Block.__(0, [/* record */[
+                            /* route */state[/* route */0],
+                            /* loggedIn */action[0]
+                          ]]);
+              } else {
+                return /* Update */Block.__(0, [/* record */[
+                            /* route */action[0],
+                            /* loggedIn */state[/* loggedIn */1]
+                          ]]);
+              }
             }),
           /* jsElementWrapped */component$1[/* jsElementWrapped */13]
         ];

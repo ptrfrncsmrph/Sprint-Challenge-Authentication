@@ -29,19 +29,30 @@ type route =
   | Login
   | Jokes;
 
-type state = {route};
+type token = string;
+
+type loggedIn =
+  | None
+  | Some(token);
+
+type state = {
+  route,
+  loggedIn,
+};
 
 type action =
-  | ChangeRoute(route);
+  | ChangeRoute(route)
+  | LogIn(token);
 
 let component = ReasonReact.reducerComponent("App");
 let make = _children => {
   ...component,
-  initialState: () => {route: Home},
+  initialState: () => {route: Home, loggedIn: None},
 
-  reducer: (action, _state) =>
+  reducer: (action, state) =>
     switch (action) {
-    | ChangeRoute(route) => ReasonReact.Update({route: route})
+    | ChangeRoute(route) => ReasonReact.Update({...state, route})
+    | LogIn(token) => ReasonReact.Update({...state, loggedIn: Some(token)})
     },
 
   didMount: self => {
@@ -52,6 +63,7 @@ let make = _children => {
         | (_, true) => self.send(ChangeRoute(Jokes))
         | (["jokes"], false) => self.send(ChangeRoute(Login))
         | (["login"], false) => self.send(ChangeRoute(Login))
+        | (["logout"], false) => self.send(ChangeRoute(Login))
         | (["signup"], false) => self.send(ChangeRoute(Signup))
         | _ => self.send(ChangeRoute(Home))
         }
@@ -61,11 +73,18 @@ let make = _children => {
 
   render: ({state}) => {
     <>
-      <nav> <Link href="/jokes"> {"Jokes" |> str} </Link> </nav>
+      <nav>
+        <Link href="/"> {"Home" |> str} </Link>
+        <Link href="/jokes"> {"Jokes" |> str} </Link>
+        {MyAppStatus.isUserLoggedIn
+           ? <Link href="/logout"> {"Logout" |> str} </Link>
+           : <Link href="/login"> {"Login" |> str} </Link>}
+        <Link href="/signup"> {"Signup" |> str} </Link>
+      </nav>
       {switch (state.route) {
-       | Home => <Home message="Hello, from App" />
-       | Jokes => <Home message="JOKES   !!!! Hellowjadjfas;djf" />
-       | _ => <Home message="Hellowjadjfas;djf" />
+       | Home => <Home />
+       | Jokes => <Jokes />
+       | _ => <Home />
        }}
     </>;
   },

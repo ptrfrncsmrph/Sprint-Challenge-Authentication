@@ -8,7 +8,7 @@ function str(prim) {
   return prim;
 }
 
-var component = ReasonReact.statelessComponent("Home");
+var component = ReasonReact.statelessComponent("Jokes");
 
 function make(_children) {
   return /* record */[
@@ -22,7 +22,7 @@ function make(_children) {
           /* willUpdate */component[/* willUpdate */7],
           /* shouldUpdate */component[/* shouldUpdate */8],
           /* render */(function (_self) {
-              return React.createElement("h1", undefined, "Home");
+              return React.createElement("h1", undefined, "Jokes");
             }),
           /* initialState */component[/* initialState */10],
           /* retainedProps */component[/* retainedProps */11],

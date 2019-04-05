@@ -1,13 +1,8 @@
+let str = ReasonReact.string;
+
 let component = ReasonReact.statelessComponent("Home");
 
-let handleClick = (_event, _self) => {
-  ReasonReact.Router.push("jokes");
-};
-
-let make = (~message, _children) => {
+let make = _children => {
   ...component,
-  render: self =>
-    <div onClick={self.handle(handleClick)}>
-      {ReasonReact.string(message)}
-    </div>,
+  render: _self => <h1> {"Home" |> str} </h1>,
 };
